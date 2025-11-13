@@ -1,11 +1,12 @@
-#### Fonctions secondaires
-
+"""Code syracuse
+"""
 
 # imports
 from plotly.graph_objects import Scatter, Figure
 
 ### NE PAS MODIFIER ###
 def syr_plot(lsyr):
+    """graphe"""
     title = "Syracuse" + " (n = " + str(lsyr[0]) + " )"
     fig = Figure({  'layout':   { 'title': {'text': title},
                                 'xaxis': {'title': {'text':"x"}},
@@ -14,29 +15,26 @@ def syr_plot(lsyr):
                 }
     )
 
-    x = [ i for i in range(len(lsyr)) ]
+    x = list(range(len(lsyr)))
     t = Scatter(x=x, y=lsyr, mode="lines+markers", marker_color = "blue")
     fig.add_trace(t)
     fig.show()
     # fig.write_html('fig.html', include_plotlyjs='cdn')
-    return None
 #######################
 
-def syracuse_l(n):
-    """retourne la suite de Syracuse de source n
+def syracuse_l(p: int) -> list:
+    """retourne la suite de Syracuse de source n"""
+    suite = [p]
+    while p != 1:
+        if p % 2 == 0:
+            p = p // 2
+        else:
+            p = 3 * p + 1
+        suite.append(p)
 
-    Args:
-        n (int): la source de la suite
+    return suite
 
-    Returns:
-        list: la suite de Syracuse de source n
-    """
-
-    # votre code ici 
-    l = [ ]
-    return l
-
-def temps_de_vol(l):
+def temps_de_vol(l: list) -> int:
     """Retourne le temps de vol d'une suite de Syracuse
 
     Args:
@@ -45,29 +43,19 @@ def temps_de_vol(l):
     Returns:
         int: le temps de vol
     """
-    
-    # votre code ici
+    return len(l) - 1
 
-    n = 0
-    return n
-
-def temps_de_vol_en_altitude(l):
-    """Retourne le temps de vol en altitude d'une suite de Syracuse
-
-    Args:
-        l (list): la suite de Syracuse
-
-    Returns:
-        int: le temps de vol en altitude
-    """
-
-    # votre code ici
-
-    n = 0
-    return n
-
-
-def altitude_maximale(l):
+def temps_de_vol_en_altitude(l: list) -> int:
+    """Retourne le temps de vol en altitude d'une suite de Syracuse"""
+    u0 = l[0]
+    tva = 0
+    for u in l[1:]:
+        if u > u0:
+            tva += 1
+        else:
+            break
+    return tva
+def altitude_maximale(l: list) -> int:
     """retourne l'altitude maximale d'une suite de Syracuse
 
     Args:
@@ -76,18 +64,14 @@ def altitude_maximale(l):
     Returns:
         int: l'altitude maximale
     """
-    
-    # votre code ici
-    
-    n = 0
-    return n
+    return max(l)
 
 
 #### Fonction principale
 
 
 def main():
-
+    """FOonction où tout se teste"""
     # vos appels à la fonction secondaire ici
     lsyr = syracuse_l(15)
     syr_plot(lsyr)
